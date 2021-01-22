@@ -2,7 +2,7 @@ import tkinter as tk
 
 from PIL import Image, ImageTk
 
-from hsl2rgb import hsl2rgb
+from convert_hsl2rgb import hsl2rgb
 
 
 # https://stackoverflow.com/questions/42476040/tkinter-get-mouse-coordinates-on-click-and-use-them-as-variables
