@@ -11,8 +11,7 @@ def hsl2rgb(hue, saturation, lightness):
 def rgb2hsl(red, blue, green):
     return convert_rgb2hsl.rgb2hsl(red, blue, green)
 
-
-def rgb_square_grid(resolution, l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_min=0, l_max=1):
+def hsl_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_min=0, l_max=1):
     h = np.linspace(h_min, h_max, resolution[0], endpoint=False)
     s = np.linspace(s_min, s_max, resolution[1], endpoint=False)
 
@@ -26,5 +25,8 @@ def rgb_square_grid(resolution, l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_m
         print(len(resolution))
         return -1
 
-    return hsl2rgb(h_1, s_1, l_1)
+    return h_1, s_1, l_1
+
+def rgb_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_min=0, l_max=1):
+    return hsl2rgb(hsl_square_grid(resolution, l, h_min, h_max, s_min, s_max, l_min, l_max))
 

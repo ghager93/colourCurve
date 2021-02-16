@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-from convert_hsl2rgb import rgb_square_grid
+from colour import rgb_square_grid
 
 
 def create_image(path='lib/images/rgb_square.png', resolution=(256, 256),
