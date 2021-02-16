@@ -28,5 +28,5 @@ def hsl_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s
     return h_1, s_1, l_1
 
 def rgb_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_min=0, l_max=1):
-    return hsl2rgb(hsl_square_grid(resolution, l, h_min, h_max, s_min, s_max, l_min, l_max))
+    return hsl2rgb(*hsl_square_grid(resolution, l, h_min, h_max, s_min, s_max, l_min, l_max))
 
