@@ -17,11 +17,11 @@ def _fh(r, g, b, delta, c_max):
     delta_no_zeros = np.where(delta == 0, 1, delta)
 
     def cmax_is_r():
-        return 60 * (((g - b) / delta_no_zeros) % 6)
+        return (((g - b) / delta_no_zeros) % 6) / 6
     def cmax_is_g():
-        return 60 * (((b - r) / delta_no_zeros) + 2)
+        return (((b - r) / delta_no_zeros) + 2) / 6
     def cmax_is_b():
-        return 60 * (((r - g) / delta_no_zeros) + 4)
+        return (((r - g) / delta_no_zeros) + 4) / 6
 
     out = np.zeros(delta.shape)
     out = np.where((c_max == r) & (delta != 0), cmax_is_r(), out)
