@@ -50,21 +50,28 @@ def _rgb_raw(h_dash, c, x):
     out[h_seg, 1] = 0.
     out[h_seg, 2] = x[h_seg]
     
-    return out
+    return out.transpose(2, 0, 1)
 
 
 def _hex_segment(h_dash, seg):
     return (h_dash >= seg) & (h_dash < seg + 1)
 
 
-def _rgb_normalise(RGB, m):
-    RGB_reshaped = np.moveaxis(RGB, -1, 0)
-    out = np.moveaxis(RGB_reshaped + m, 0, -1)
-    return out
+def _rgb_normalise(rgb, m):
+    return rgb + m
 
 
 def hsl2rgb(h, s, l):
-    h_dash = _h_dash_func(h)
+    h_dash = _h_dash_func(_normalise_h(h))
     c = _c_func(s, l)
     x = _x_func(c, h_dash)
+
     return _rgb_normalise(_rgb_raw(h_dash, c, x), _m_func(l, c))
+
+
+def _normalise_h(h):
+    if np.max(h) <= 1:
+        h *= 360
+
+    return h
+

@@ -65,3 +65,9 @@ class VectorMap():
 
     def _point_scaling_funcs(self):
         return [gaussian_3d_func(self._gt[i], [self._px[i], self._py[i]]) for i in range(self.num_samples)]
+
+
+def map_hsl_image(image, velocity_func):
+    x = np.array([image[0], image[1]])
+    return np.array([*(x - velocity_func(x)), image[2]])
+

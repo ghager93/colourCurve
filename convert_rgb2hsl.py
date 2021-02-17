@@ -41,6 +41,11 @@ def _fl(c_max, c_min):
 
 
 def rgb2hsl(r, g, b):
+    if np.max([r, g, b]) > 1:
+        r = r / 255
+        g = g / 255
+        b = b / 255
+        
     c_max = _fc_max(r, g, b)
     c_min = _fc_min(r, g, b)
     delta = _fdelta(c_max, c_min)
@@ -49,4 +54,4 @@ def rgb2hsl(r, g, b):
     vl = _fl(c_max, c_min)
     s = _fs(delta, vl)
     
-    return h, s, vl
+    return np.array([h, s, vl])
