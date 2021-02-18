@@ -36,4 +36,4 @@ def image_centroids(image, n_centroids):
     else:
         im_points = np.reshape(np.copy(image), (-1, 3))
 
-    return KMeans(n_centroids).fit(im_points).cluster_centres_
+    return KMeans(n_centroids).fit(im_points).cluster_centers_
