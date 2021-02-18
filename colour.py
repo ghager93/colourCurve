@@ -30,9 +30,4 @@ def hsl_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s
 
 
 def rgb_square_grid(resolution=(256, 256), l=0.5, h_min=0, h_max=360, s_min=0, s_max=1, l_min=0, l_max=1):
-    return hsl2rgb(*hsl_square_grid(resolution, l, h_min, h_max, s_min, s_max, l_min, l_max))
-
-
-def image2hsl(image):
-    return rgb2hsl(image.transpose(2, 0, 1)).transpose(1, 2, 0)
-
+    return hsl2rgb(*hsl_square_grid(resolution, l, h_min, h_max, s_min, s_max, l_min, l_max)).transpose(1, 2, 0)

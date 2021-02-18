@@ -1,9 +1,14 @@
 import numpy as np
 
-from point_spread_functions import gaussian_3d_func
+from point_spread_functions import gaussian_func
 
 class VectorMap():
-    def __init__(self, px, py, qx, qy, wt, gt):
+    def __init__(self, px, py, qx, qy, wt=None, gt=None):
+        if wt is None:
+            wt = [1, 1]
+        if gt is None:
+            gt = [0.3, 0.3]
+
         self.num_samples = len(px)
         self._px = np.atleast_1d(px)
         self._py = np.atleast_1d(py)
@@ -26,6 +31,9 @@ class VectorMap():
         unscaled_velocity_func = self._unscaled_velocity_func()
 
         return lambda x: scaling_func(x) * unscaled_velocity_func(x)
+
+    def mapping_func(self):
+        return lambda x: x - self.velocity_func()(x)
 
     def _unscaled_velocity_func(self):
         def v(x):
@@ -51,7 +59,7 @@ class VectorMap():
         return w
 
     def _point_weighting_funcs(self):
-        return [gaussian_3d_func(self._wt[i], [self._px[i], self._py[i]]) for i in range(self.num_samples)]
+        return [gaussian_func(self._wt[i], [self._px[i], self._py[i]]) for i in range(self.num_samples)]
 
     def _scaling_func(self):
         def g(x):
@@ -64,10 +72,10 @@ class VectorMap():
         return g
 
     def _point_scaling_funcs(self):
-        return [gaussian_3d_func(self._gt[i], [self._px[i], self._py[i]]) for i in range(self.num_samples)]
+        return [gaussian_func(self._gt[i], [self._px[i], self._py[i]]) for i in range(self.num_samples)]
 
 
-def map_hsl_image(image, velocity_func):
+def map_image(image, velocity_func):
     x = np.array([image[0], image[1]])
     return np.array([*(x - velocity_func(x)), image[2]])
 
